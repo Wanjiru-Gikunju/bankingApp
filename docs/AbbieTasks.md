@@ -36,16 +36,16 @@ Control the entire application.
 
 ### Checklist
 
-* [ ] Keep the application running while `running == true`
-* [ ] If no user is logged in:
+* [x] Keep the application running while `running == true`
+* [x] If no user is logged in:
 
   * call `login()`
-* [ ] Otherwise:
+* [x] Otherwise:
 
   * display the menu
   * read the menu choice
   * process the selected option
-* [ ] Handle EOF (Ctrl + D) gracefully
+* [x] Handle EOF (Ctrl + D) gracefully
 
 ---
 
@@ -57,10 +57,10 @@ Authenticate a user.
 
 ### Checklist
 
-* [ ] Ask for the user's name
-* [ ] Search using `findUser()`
-* [ ] Display an error if the user does not exist
-* [ ] Set `currentUser` when login succeeds
+* [x] Ask for the user's name
+* [x] Search using `findUser()`
+* [x] Display an error if the user does not exist
+* [x] Set `currentUser` when login succeeds
 
 ---
 
@@ -72,10 +72,10 @@ Read a valid menu option.
 
 ### Checklist
 
-* [ ] Reject empty input
-* [ ] Reject letters
-* [ ] Reject numbers outside 1–9
-* [ ] Continue prompting until a valid option is entered
+* [x] Reject empty input
+* [x] Reject letters
+* [x] Reject numbers outside 1–9
+* [x] Continue prompting until a valid option is entered
 
 ---
 
@@ -121,15 +121,15 @@ Display every balance.
 
 Before displaying balances:
 
-* [ ] Apply savings interest
-* [ ] Apply investment growth
+* [x] Apply savings interest
+* [x] Apply investment growth
 
 Display:
 
-* [ ] Cash
-* [ ] Savings balance
-* [ ] Investment account balance
-* [ ] Investments
+* [x] Cash
+* [x] Savings balance
+* [x] Investment account balance
+* [x] Investments
 
 ---
 
@@ -141,10 +141,10 @@ Read a valid monetary amount.
 
 ### Checklist
 
-* [ ] Reject invalid decimal numbers
-* [ ] Reject empty input
-* [ ] Handle EOF
-* [ ] Return a `BigDecimal`
+* [x] Reject invalid decimal numbers
+* [x] Reject empty input
+* [x] Handle EOF
+* [x] Return a `BigDecimal`
 
 ---
 
@@ -156,8 +156,8 @@ Create the application's entry point.
 
 ### Checklist
 
-* [ ] Instantiate `BankingService`
-* [ ] Call `start()`
+* [x] Instantiate `BankingService`
+* [x] Call `start()`
 
 ---
 
@@ -165,10 +165,10 @@ Create the application's entry point.
 
 After Eric completes the model classes:
 
-* [ ] Connect every operation
-* [ ] Ensure all classes compile
-* [ ] Resolve merge conflicts if any
-* [ ] Review teammates' code before merging
+* [x] Connect every operation
+* [x] Ensure all classes compile
+* [x] Resolve merge conflicts if any
+* [x] Review teammates' code before merging
 
 ---
 
@@ -176,27 +176,27 @@ After Eric completes the model classes:
 
 Before submission, verify:
 
-* [ ] Login
-* [ ] Logout
-* [ ] Deposits
-* [ ] Withdrawals
-* [ ] Transfers
-* [ ] Investments
-* [ ] Interest calculations
-* [ ] Fund growth
-* [ ] Invalid usernames
-* [ ] Invalid menu choices
-* [ ] Invalid monetary amounts
-* [ ] EOF handling
+* [x] Login
+* [x] Logout
+* [x] Deposits
+* [x] Withdrawals
+* [x] Transfers
+* [x] Investments
+* [x] Interest calculations
+* [x] Fund growth
+* [x] Invalid usernames
+* [x] Invalid menu choices
+* [x] Invalid monetary amounts
+* [x] EOF handling
 
 ---
 
 # Git Responsibilities
 
-* [ ] Review pull requests
-* [ ] Merge approved branches into `main`
-* [ ] Keep `main` stable
-* [ ] Create the final submission version
+* [x] Review pull requests
+* [x] Merge approved branches into `main`
+* [x] Keep `main` stable
+* [x] Create the final submission version
 
 ---
 

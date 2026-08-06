@@ -47,58 +47,40 @@ public class InvestmentAccount extends Account {
      */
     public void invest(Fund fund, BigDecimal amount)
             throws InvalidAmountException {
+        validatePositiveAmount(amount);
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Invest money into the selected fund.
-        //
-        // Requirements:
-        // 1. Validate the amount.
-        // 2. Ensure sufficient investment account balance.
-        // 3. Deduct the amount from this account balance.
-        // 4. Add the amount to the selected fund.
-        //==================================================
+        if (balance.compareTo(amount) < 0) {
+            throw new InvalidAmountException("Insufficient investment account balance.");
+        }
 
+        balance = balance.subtract(amount);
+        BigDecimal current = investments.getOrDefault(fund, BigDecimal.ZERO);
+        investments.put(fund, current.add(amount));
     }
 
     /**
      * Applies growth to every investment fund.
      */
     public void applyGrowth() {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Apply growth to all investments.
-        //
-        // Requirements:
-        // 1. Loop through every investment.
-        // 2. Calculate growth using fund.getGrowthRate().
-        // 3. Update each investment value.
-        //==================================================
-
+        for (Map.Entry<Fund, BigDecimal> entry : investments.entrySet()) {
+            BigDecimal currentAmount = entry.getValue();
+            BigDecimal growth = currentAmount.multiply(entry.getKey().getGrowthRate());
+            entry.setValue(currentAmount.add(growth));
+        }
     }
 
     /**
      * Withdraws all investments back into the investment account.
      */
     public void withdrawAllInvestments() {
+        BigDecimal total = BigDecimal.ZERO;
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Withdraw all invested money.
-        //
-        // Requirements:
-        // 1. Calculate the total value of all investments.
-        // 2. Add the total back to the account balance.
-        // 3. Clear all investments.
-        //==================================================
+        for (BigDecimal amount : investments.values()) {
+            total = total.add(amount);
+        }
 
+        balance = balance.add(total);
+        investments.clear();
     }
 
     /**

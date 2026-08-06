@@ -1,116 +1,69 @@
 package service;
 
+import exception.InvalidAmountException;
+import model.Fund;
 import model.User;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Green Day Bank
- *
- * BankingService.java
- *
- * Handles application flow, user sessions and banking operations.
- */
+/** Handles application flow, user sessions, and banking operations. */
 public class BankingService {
-
-    //==================================================
-    // Fields
-    //==================================================
 
     private final Scanner scanner;
     private final Map<String, User> users;
-
     private User currentUser;
     private boolean running;
 
-    //==================================================
-    // Constructors
-    //==================================================
-
-    /**
-     * Creates the banking service.
-     */
+    /** Creates the banking service and its predefined users. */
     public BankingService() {
         scanner = new Scanner(System.in);
         users = new HashMap<>();
-
         currentUser = null;
         running = true;
-
         initializeUsers();
     }
 
-    //==================================================
-    // Public Methods
-    //==================================================
-
-    /**
-     * Starts the banking application.
-     */
+    /** Starts the interactive banking application. */
     public void start() {
-
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Run the application's main loop.
-        //
-        // Requirements:
-        // 1. Continue while running is true.
-        // 2. If no user is logged in, call login().
-        // 3. Otherwise:
-        //      - displayMenu()
-        //      - readMenuChoice()
-        //      - processMenuChoice(choice)
-        // 4. Handle EOF (Ctrl + D) gracefully.
-        //==================================================
-
+        System.out.println("Welcome to Green Day Bank!");
+        while (running) {
+            if (currentUser == null) {
+                login();
+            } else {
+                displayMenu();
+                int choice = readMenuChoice();
+                if (choice != -1) {
+                    processMenuChoice(choice);
+                }
+            }
+        }
+        System.out.println("Thank you for banking with Green Day Bank.");
     }
 
-    //==================================================
-    // Login Methods
-    //==================================================
-
-    /**
-     * Logs a user into the application.
-     */
     private void login() {
-
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Log a user into the banking system.
-        //
-        // Requirements:
-        // 1. Ask for the user's name.
-        // 2. Verify the user exists.
-        // 3. Set currentUser.
-        // 4. Display an error if the user is invalid.
-        // 5. Handle EOF gracefully.
-        //==================================================
-
+        System.out.print("Enter your name (Alice, Bob, Charlie, or Diana): ");
+        if (!scanner.hasNextLine()) {
+            running = false;
+            return;
+        }
+        User user = findUser(scanner.nextLine().trim());
+        if (user == null) {
+            System.out.println("User not found. Please try again.");
+            return;
+        }
+        currentUser = user;
+        System.out.println("Welcome, " + currentUser.getName() + "!");
     }
 
-    /**
-     * Logs out the current user.
-     */
     private void logout() {
         currentUser = null;
     }
 
-    //==================================================
-    // Menu Methods
-    //==================================================
-
-    /**
-     * Displays the banking menu.
-     */
     private void displayMenu() {
-
         System.out.println();
         System.out.println("--- Banking App Menu ---");
         System.out.println("1. Show balance");
@@ -124,252 +77,261 @@ public class BankingService {
         System.out.println("9. Exit");
     }
 
-    /**
-     * Reads a valid menu option.
-     *
-     * @return Menu choice.
-     */
     private int readMenuChoice() {
-
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Read and validate the user's menu choice.
-        //
-        // Requirements:
-        // 1. Handle EOF gracefully.
-        // 2. Reject non-numeric input.
-        // 3. Reject values outside 1-9.
-        // 4. Continue prompting until valid.
-        //==================================================
-
+        while (running) {
+            System.out.print("Choose an option: ");
+            if (!scanner.hasNextLine()) {
+                running = false;
+                return -1;
+            }
+            try {
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+                if (choice >= 1 && choice <= 9) {
+                    return choice;
+                }
+            } catch (NumberFormatException ignored) {
+                // The message below covers empty and non-numeric input too.
+            }
+            System.out.println("Please enter a number from 1 to 9.");
+        }
         return -1;
     }
 
-    /**
-     * Executes the selected menu option.
-     *
-     * @param choice Menu option selected by the user.
-     */
     private void processMenuChoice(int choice) {
-
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Execute the selected menu option.
-        //
-        // Requirements:
-        // 1 -> showBalance()
-        // 2 -> depositMoney()
-        // 3 -> withdrawMoney()
-        // 4 -> sendMoney()
-        // 5 -> investMoney()
-        // 6 -> transferBetweenAccounts()
-        // 7 -> withdrawAllInvestments()
-        // 8 -> logout()
-        // 9 -> running = false
-        //==================================================
-
+        switch (choice) {
+            case 1:
+                showBalance();
+                break;
+            case 2:
+                depositMoney();
+                break;
+            case 3:
+                withdrawMoney();
+                break;
+            case 4:
+                sendMoney();
+                break;
+            case 5:
+                investMoney();
+                break;
+            case 6:
+                transferBetweenAccounts();
+                break;
+            case 7:
+                withdrawAllInvestments();
+                break;
+            case 8:
+                logout();
+                System.out.println("You have been logged out.");
+                break;
+            case 9:
+                running = false;
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected menu choice: " + choice);
+        }
     }
 
-    //==================================================
-    // Banking Operations
-    //==================================================
-
-    /**
-     * Displays the user's balances.
-     */
     private void showBalance() {
+        try {
+            currentUser.getSavingsAccount().applyInterest();
+        } catch (InvalidAmountException exception) {
+            System.out.println("Could not apply savings interest: " + exception.getMessage());
+            return;
+        }
+        currentUser.getInvestmentAccount().applyGrowth();
 
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Display all balances.
-        //
-        // Requirements:
-        // 1. Apply savings interest.
-        // 2. Apply investment growth.
-        // 3. Display:
-        //      - Cash
-        //      - Savings balance
-        //      - Investment account balance
-        //      - Investments
-        //==================================================
-
+        System.out.println();
+        System.out.println("--- " + currentUser.getName() + "'s balances ---");
+        System.out.println("Cash: " + formatMoney(currentUser.getCash()));
+        System.out.println("Savings: " + formatMoney(currentUser.getSavingsAccount().getBalance()));
+        System.out.println("Investment account: "
+                + formatMoney(currentUser.getInvestmentAccount().getBalance()));
+        System.out.println("Investments:");
+        if (currentUser.getInvestmentAccount().getInvestments().isEmpty()) {
+            System.out.println("  None");
+            return;
+        }
+        for (Map.Entry<Fund, BigDecimal> entry
+                : currentUser.getInvestmentAccount().getInvestments().entrySet()) {
+            System.out.println("  " + entry.getKey() + ": " + formatMoney(entry.getValue()));
+        }
     }
 
-    /**
-     * Deposits money into the savings account.
-     */
     private void depositMoney() {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Deposit cash into the savings account.
-        //
-        // Requirements:
-        // 1. Read deposit amount.
-        // 2. Ensure user has enough cash.
-        // 3. Call savingsAccount.deposit().
-        // 4. Reduce the user's cash.
-        //==================================================
-
+        BigDecimal amount = readAmount();
+        if (amount == null) {
+            return;
+        }
+        if (currentUser.getCash().compareTo(amount) < 0) {
+            System.out.println("Insufficient cash.");
+            return;
+        }
+        try {
+            currentUser.getSavingsAccount().deposit(amount);
+            currentUser.setCash(currentUser.getCash().subtract(amount));
+            System.out.println("Deposited " + formatMoney(amount) + " into savings.");
+        } catch (InvalidAmountException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
-    /**
-     * Withdraws money from the savings account.
-     */
     private void withdrawMoney() {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Withdraw money from the savings account.
-        //
-        // Requirements:
-        // 1. Read withdrawal amount.
-        // 2. Call savingsAccount.withdraw().
-        // 3. Increase user's cash.
-        //==================================================
-
+        BigDecimal amount = readAmount();
+        if (amount == null) {
+            return;
+        }
+        try {
+            currentUser.getSavingsAccount().withdraw(amount);
+            currentUser.setCash(currentUser.getCash().add(amount));
+            System.out.println("Withdrew " + formatMoney(amount) + " from savings.");
+        } catch (InvalidAmountException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
-    /**
-     * Sends money to another user.
-     */
     private void sendMoney() {
+        System.out.print("Enter the recipient's name: ");
+        if (!scanner.hasNextLine()) {
+            running = false;
+            return;
+        }
+        User recipient = findUser(scanner.nextLine().trim());
+        if (recipient == null) {
+            System.out.println("Recipient not found.");
+            return;
+        }
+        if (recipient == currentUser) {
+            System.out.println("You cannot send money to yourself.");
+            return;
+        }
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Transfer money between users.
-        //
-        // Requirements:
-        // 1. Read recipient.
-        // 2. Validate recipient.
-        // 3. Read amount.
-        // 4. Withdraw from sender.
-        // 5. Deposit into recipient's savings account.
-        //==================================================
-
+        BigDecimal amount = readAmount();
+        if (amount == null) {
+            return;
+        }
+        try {
+            currentUser.getSavingsAccount().withdraw(amount);
+            recipient.getSavingsAccount().deposit(amount);
+            System.out.println("Sent " + formatMoney(amount) + " to " + recipient.getName() + ".");
+        } catch (InvalidAmountException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
-    /**
-     * Invests money into one of the available funds.
-     */
+
     private void investMoney() {
+        System.out.println("Available funds:");
+        for (Fund fund : Fund.values()) {
+            String percentage = fund.getGrowthRate().movePointRight(2)
+                    .stripTrailingZeros().toPlainString();
+            System.out.println("  " + fund + " (" + percentage + "% growth)");
+        }
+        System.out.print("Choose a fund: ");
+        if (!scanner.hasNextLine()) {
+            running = false;
+            return;
+        }
+        Fund fund;
+        try {
+            fund = Fund.valueOf(scanner.nextLine().trim().toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Invalid fund. Please choose one of the listed funds.");
+            return;
+        }
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Invest money from the investment account.
-        //
-        // Requirements:
-        // 1. Display available funds.
-        // 2. Read the selected fund.
-        // 3. Read the investment amount.
-        // 4. Call investmentAccount.invest().
-        //==================================================
-
+        BigDecimal amount = readAmount();
+        if (amount == null) {
+            return;
+        }
+        try {
+            currentUser.getInvestmentAccount().invest(fund, amount);
+            System.out.println("Invested " + formatMoney(amount) + " in " + fund + ".");
+        } catch (InvalidAmountException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
-    /**
-     * Transfers money between savings and investment accounts.
-     */
     private void transferBetweenAccounts() {
+        System.out.println("1. Savings to investment account");
+        System.out.println("2. Investment account to savings");
+        System.out.print("Choose a transfer direction: ");
+        if (!scanner.hasNextLine()) {
+            running = false;
+            return;
+        }
+        String direction = scanner.nextLine().trim();
+        if (!direction.equals("1") && !direction.equals("2")) {
+            System.out.println("Please enter 1 or 2.");
+            return;
+        }
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Transfer money between accounts.
-        //
-        // Requirements:
-        // 1. Ask for transfer direction.
-        // 2. Read transfer amount.
-        // 3. Withdraw from the source account.
-        // 4. Deposit into the destination account.
-        //==================================================
-
+        BigDecimal amount = readAmount();
+        if (amount == null) {
+            return;
+        }
+        try {
+            if (direction.equals("1")) {
+                currentUser.getSavingsAccount().withdraw(amount);
+                currentUser.getInvestmentAccount().deposit(amount);
+            } else {
+                currentUser.getInvestmentAccount().withdraw(amount);
+                currentUser.getSavingsAccount().deposit(amount);
+            }
+            System.out.println("Transferred " + formatMoney(amount) + ".");
+        } catch (InvalidAmountException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
-    /**
-     * Withdraws every investment back into the investment account.
-     */
     private void withdrawAllInvestments() {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Withdraw all investments.
-        //
-        // Requirements:
-        // 1. Call withdrawAllInvestments() on the investment account.
-        // 2. Do not print anything inside the model classes.
-        //==================================================
-
+        if (currentUser.getInvestmentAccount().getInvestments().isEmpty()) {
+            System.out.println("You have no investments to withdraw.");
+            return;
+        }
+        currentUser.getInvestmentAccount().withdrawAllInvestments();
+        System.out.println("All investments have been moved to your investment account.");
     }
 
-    //==================================================
-    // Helper Methods
-    //==================================================
-
-    /**
-     * Creates the predefined users.
-     */
     private void initializeUsers() {
-
-        String[] names = {
-                "Alice",
-                "Bob",
-                "Charlie",
-                "Diana"
-        };
-
+        String[] names = {"Alice", "Bob", "Charlie", "Diana"};
         for (String name : names) {
             users.put(name, new User(name));
         }
     }
 
-    /**
-     * Finds a user by name.
-     *
-     * @param name User's name.
-     * @return Matching user or null.
-     */
     private User findUser(String name) {
-        return users.get(name);
+        if (name == null) {
+            return null;
+        }
+        for (Map.Entry<String, User> entry : users.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(name.trim())) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
-    /**
-     * Reads a monetary amount from the user.
-     *
-     * @return Amount entered by the user.
-     */
     private BigDecimal readAmount() {
-
-        //==================================================
-        // TODO (Abbie Gikunju)
-        //
-        // Objective:
-        // Read a valid monetary amount.
-        //
-        // Requirements:
-        // 1. Handle EOF gracefully.
-        // 2. Reject invalid decimal numbers.
-        // 3. Continue prompting until a valid amount is entered.
-        // 4. Return the amount as a BigDecimal.
-        //==================================================
-
-        return BigDecimal.ZERO;
+        while (running) {
+            System.out.print("Enter an amount: ");
+            if (!scanner.hasNextLine()) {
+                running = false;
+                return null;
+            }
+            try {
+                BigDecimal amount = new BigDecimal(scanner.nextLine().trim());
+                if (amount.compareTo(BigDecimal.ZERO) > 0) {
+                    return amount;
+                }
+            } catch (NumberFormatException ignored) {
+                // The message below covers invalid decimal input too.
+            }
+            System.out.println("Please enter an amount greater than zero.");
+        }
+        return null;
     }
 
+    private String formatMoney(BigDecimal amount) {
+        return "$" + amount.setScale(2, RoundingMode.HALF_UP).toPlainString();
+    }
 }

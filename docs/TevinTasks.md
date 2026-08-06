@@ -41,10 +41,10 @@ You may also make **small fixes** in Java files if Abbie assigns them to you.
 
 ### Checklist
 
-* [ ] Read `TEAM_GUIDE.md`
-* [ ] Read `TASKBOARD.md`
-* [ ] Understand the project structure
-* [ ] Update documentation if the team agrees on any changes
+* [x] Read `TEAM_GUIDE.md`
+* [x] Read `TASKBOARD.md`
+* [x] Understand the project structure
+* [x] Update documentation if the team agrees on any changes
 
 ---
 
@@ -54,11 +54,11 @@ You may also make **small fixes** in Java files if Abbie assigns them to you.
 
 Test the following:
 
-* [ ] Login with Alice
-* [ ] Login with Bob
-* [ ] Login with Charlie
-* [ ] Login with Diana
-* [ ] Attempt to log in with an invalid username
+* [x] Login with Alice
+* [x] Login with Bob
+* [x] Login with Charlie
+* [x] Login with Diana
+* [x] Attempt to log in with an invalid username
 
 ---
 
@@ -66,9 +66,9 @@ Test the following:
 
 Verify that:
 
-* [ ] All 9 menu options appear
-* [ ] Invalid menu choices are handled correctly
-* [ ] The menu is displayed again after completing an operation
+* [x] All 9 menu options appear
+* [x] Invalid menu choices are handled correctly
+* [x] The menu is displayed again after completing an operation
 
 ---
 
@@ -76,10 +76,10 @@ Verify that:
 
 Test:
 
-* [ ] Depositing money
-* [ ] Withdrawing money
-* [ ] Insufficient funds
-* [ ] Interest is applied correctly when viewing the balance
+* [x] Depositing money
+* [x] Withdrawing money
+* [x] Insufficient funds
+* [x] Interest is applied correctly when viewing the balance
 
 ---
 
@@ -87,9 +87,9 @@ Test:
 
 Test:
 
-* [ ] Sending money to another user
-* [ ] Sending more money than available
-* [ ] Sending money to a non-existent user
+* [x] Sending money to another user
+* [x] Sending more money than available
+* [x] Sending money to a non-existent user
 
 ---
 
@@ -97,11 +97,11 @@ Test:
 
 Test:
 
-* [ ] Investing in LOW_RISK
-* [ ] Investing in MEDIUM_RISK
-* [ ] Investing in HIGH_RISK
-* [ ] Growth is applied when viewing balances
-* [ ] Withdraw all investments
+* [x] Investing in LOW_RISK
+* [x] Investing in MEDIUM_RISK
+* [x] Investing in HIGH_RISK
+* [x] Growth is applied when viewing balances
+* [x] Withdraw all investments
 
 ---
 
@@ -109,11 +109,11 @@ Test:
 
 Test:
 
-* [ ] Letters where numbers are expected
-* [ ] Negative amounts
-* [ ] Zero amounts
-* [ ] Empty input
-* [ ] EOF (Ctrl + D)
+* [x] Letters where numbers are expected
+* [x] Negative amounts
+* [x] Zero amounts
+* [x] Empty input
+* [x] EOF (Ctrl + D)
 
 ---
 
@@ -151,19 +151,19 @@ Describe what actually happened.
 
 If assigned by Abbie, you may help with:
 
-* [ ] Fixing typos
-* [ ] Updating comments
-* [ ] Improving documentation
-* [ ] Fixing small validation issues
-* [ ] Running the application and confirming features work
+* [x] Fixing typos
+* [x] Updating comments
+* [x] Improving documentation
+* [x] Fixing small validation issues
+* [x] Running the application and confirming features work
 
 ---
 
 # Before You Commit
 
-* [ ] Verify your changes
-* [ ] Ensure the project still compiles
-* [ ] Inform Abbie what you changed
+* [x] Verify your changes
+* [x] Ensure the project still compiles
+* [x] Inform Abbie what you changed
 
 ---
 

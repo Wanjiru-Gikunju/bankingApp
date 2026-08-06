@@ -39,19 +39,8 @@ public class SavingsAccount extends Account {
      * Applies 1% interest to the current balance.
      */
     public void applyInterest() throws InvalidAmountException {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Apply interest to the savings account.
-        //
-        // Requirements:
-        // 1. Calculate 1% of the current balance.
-        // 2. Add the interest to the balance.
-        // 3. Do not print anything.
-        //==================================================
-
+        BigDecimal interest = balance.multiply(INTEREST_RATE);
+        balance = balance.add(interest);
     }
 
 }

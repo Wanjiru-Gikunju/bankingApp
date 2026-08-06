@@ -44,10 +44,10 @@ Validate that an amount can be used in a banking operation.
 
 ### Checklist
 
-* [ ] Reject `null`
-* [ ] Reject zero
-* [ ] Reject negative values
-* [ ] Throw `InvalidAmountException` if validation fails
+* [x] Reject `null`
+* [x] Reject zero
+* [x] Reject negative values
+* [x] Throw `InvalidAmountException` if validation fails
 
 ---
 
@@ -59,9 +59,9 @@ Increase the account balance.
 
 ### Checklist
 
-* [ ] Validate the amount
-* [ ] Add the amount to the balance
-* [ ] Update the account balance
+* [x] Validate the amount
+* [x] Add the amount to the balance
+* [x] Update the account balance
 
 ---
 
@@ -73,10 +73,10 @@ Decrease the account balance.
 
 ### Checklist
 
-* [ ] Validate the amount
-* [ ] Ensure sufficient funds exist
-* [ ] Subtract the amount from the balance
-* [ ] Throw `InvalidAmountException` if funds are insufficient
+* [x] Validate the amount
+* [x] Ensure sufficient funds exist
+* [x] Subtract the amount from the balance
+* [x] Throw `InvalidAmountException` if funds are insufficient
 
 ---
 
@@ -90,9 +90,9 @@ Apply the bank's 1% savings interest.
 
 ### Checklist
 
-* [ ] Calculate 1% of the current savings balance
-* [ ] Add the interest to the balance
-* [ ] Update the account balance
+* [x] Calculate 1% of the current savings balance
+* [x] Add the interest to the balance
+* [x] Update the account balance
 
 ---
 
@@ -106,9 +106,9 @@ Move money from the investment account into a selected fund.
 
 ### Checklist
 
-* [ ] Validate the amount
-* [ ] Deduct the amount from the investment account
-* [ ] Add the amount to the selected fund
+* [x] Validate the amount
+* [x] Deduct the amount from the investment account
+* [x] Add the amount to the selected fund
 
 ---
 
@@ -120,8 +120,8 @@ Apply growth to each investment fund.
 
 ### Checklist
 
-* [ ] Apply the correct percentage based on the fund
-* [ ] Update the stored investment values
+* [x] Apply the correct percentage based on the fund
+* [x] Update the stored investment values
 
 ---
 
@@ -133,20 +133,20 @@ Move every investment back into the investment account.
 
 ### Checklist
 
-* [ ] Calculate the total value of all funds
-* [ ] Add the total to the investment account balance
-* [ ] Reset all investment values to zero
+* [x] Calculate the total value of all funds
+* [x] Add the total to the investment account balance
+* [x] Reset all investment values to zero
 
 ---
 
 # Before You Commit
 
-* [ ] Code compiles
-* [ ] No `Scanner` usage
-* [ ] No printing from model classes
-* [ ] No duplicated logic
-* [ ] TODOs completed
-* [ ] Methods tested
+* [x] Code compiles
+* [x] No `Scanner` usage
+* [x] No printing from model classes
+* [x] No duplicated logic
+* [x] TODOs completed
+* [x] Methods tested
 
 ---
 

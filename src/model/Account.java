@@ -41,19 +41,8 @@ public abstract class Account {
      * @throws InvalidAmountException if the amount is invalid.
      */
     public void deposit(BigDecimal amount) throws InvalidAmountException {
-
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Implement account deposit logic.
-        //
-        // Requirements:
-        // 1. Call validatePositiveAmount(amount).
-        // 2. Increase the account balance.
-        // 3. Do not print anything.
-        //==================================================
-
+        validatePositiveAmount(amount);
+        balance = balance.add(amount);
     }
 
     /**
@@ -63,20 +52,13 @@ public abstract class Account {
      * @throws InvalidAmountException if the amount is invalid or funds are insufficient.
      */
     public void withdraw(BigDecimal amount) throws InvalidAmountException {
+        validatePositiveAmount(amount);
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Implement account withdrawal logic.
-        //
-        // Requirements:
-        // 1. Call validatePositiveAmount(amount).
-        // 2. Ensure sufficient funds exist.
-        // 3. Subtract the amount from the balance.
-        // 4. Throw InvalidAmountException if validation fails.
-        //==================================================
+        if (balance.compareTo(amount) < 0) {
+            throw new InvalidAmountException("Insufficient funds.");
+        }
 
+        balance = balance.subtract(amount);
     }
 
     /**
@@ -110,19 +92,13 @@ public abstract class Account {
     protected void validatePositiveAmount(BigDecimal amount)
             throws InvalidAmountException {
 
-        //==================================================
-        // TODO (Eric Kamau)
-        //
-        // Objective:
-        // Validate a monetary amount.
-        //
-        // Requirements:
-        // 1. Check that amount is not null.
-        // 2. Check that amount is greater than zero.
-        // 3. Throw InvalidAmountException with a meaningful
-        //    message if validation fails.
-        //==================================================
+        if (amount == null) {
+            throw new InvalidAmountException("Amount cannot be null.");
+        }
 
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException("Amount must be greater than zero.");
+        }
     }
 
 }
