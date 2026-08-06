@@ -120,9 +120,11 @@ public class BankingService {
                 break;
             case 8:
                 logout();
+                System.out.println("You have been logged out.");
                 break;
             case 9:
                 running = false;
+                System.out.println("Thank you for using our banking app. Goodbye!");
                 break;
             default:
                 break;
@@ -208,7 +210,7 @@ public class BankingService {
         try {
             currentUser.getSavingsAccount().withdraw(amount);
             recipient.getSavingsAccount().deposit(amount);
-            System.out.println("Money sent successfully.");
+            System.out.println("Sent " + formatInputAmount(amount) + " to " + recipient.getName());
         } catch (InvalidAmountException exception) {
             System.out.println("Failed to send money: " + exception.getMessage());
         }
@@ -216,12 +218,11 @@ public class BankingService {
 
     private void investMoney() {
         System.out.println("Available funds:");
-        System.out.println("1. LOW_RISK");
-        System.out.println("2. MEDIUM_RISK");
-        System.out.println("3. HIGH_RISK");
-        System.out.print("Choose a fund: ");
+        System.out.println("LOW_RISK");
+        System.out.println("MEDIUM_RISK");
+        System.out.println("HIGH_RISK");
+        System.out.print("Enter fund to invest in: ");
         if (!scanner.hasNextLine()) {
-            running = false;
             return;
         }
 
@@ -237,25 +238,21 @@ public class BankingService {
         }
         try {
             currentUser.getInvestmentAccount().invest(fund, amount);
-            System.out.println("Investment successful.");
+            System.out.println("Successfully invested " + formatInputAmount(amount)
+                    + " in " + fund + " fund");
         } catch (InvalidAmountException exception) {
-            System.out.println("Investment failed: " + exception.getMessage());
+            System.out.println("Failed to invest: " + exception.getMessage());
         }
     }
 
     private void transferBetweenAccounts() {
-        System.out.println("1. Savings account to investment account");
-        System.out.println("2. Investment account to savings account");
-        System.out.print("Choose transfer direction: ");
+        System.out.println("1. Transfer from savings to investment");
+        System.out.println("2. Transfer from investment to savings");
+        System.out.print("Enter your choice: ");
         if (!scanner.hasNextLine()) {
-            running = false;
             return;
         }
         String direction = scanner.nextLine().trim();
-        if (!direction.equals("1") && !direction.equals("2")) {
-            System.out.println("Invalid transfer direction.");
-            return;
-        }
 
         BigDecimal amount = readAmount("Enter amount to transfer: $");
         if (amount == null) {
@@ -265,11 +262,16 @@ public class BankingService {
             if (direction.equals("1")) {
                 currentUser.getSavingsAccount().withdraw(amount);
                 currentUser.getInvestmentAccount().deposit(amount);
-            } else {
+                System.out.println("Successfully transferred " + formatInputAmount(amount)
+                        + " to investment account.");
+            } else if (direction.equals("2")) {
                 currentUser.getInvestmentAccount().withdraw(amount);
                 currentUser.getSavingsAccount().deposit(amount);
+                System.out.println("Successfully transferred " + formatInputAmount(amount)
+                        + " to savings account.");
+            } else {
+                System.out.println("Invalid choice.");
             }
-            System.out.println("Transfer successful.");
         } catch (InvalidAmountException exception) {
             System.out.println("Transfer failed: " + exception.getMessage());
         }
@@ -277,7 +279,7 @@ public class BankingService {
 
     private void withdrawAllInvestments() {
         currentUser.getInvestmentAccount().withdrawAllInvestments();
-        System.out.println("All investments withdrawn successfully.");
+        System.out.println("All investments have been withdrawn and added to your investment account balance.");
     }
 
     private void initializeUsers() {
@@ -301,7 +303,6 @@ public class BankingService {
     private BigDecimal readAmount(String prompt) {
         System.out.print(prompt);
         if (!scanner.hasNextLine()) {
-            running = false;
             return null;
         }
         try {
@@ -313,13 +314,13 @@ public class BankingService {
 
     private Fund parseFund(String input) {
         String value = input.trim().toUpperCase();
-        if (value.equals("1") || value.equals("LOW_RISK")) {
+        if (value.equals("LOW_RISK")) {
             return Fund.LOW_RISK;
         }
-        if (value.equals("2") || value.equals("MEDIUM_RISK")) {
+        if (value.equals("MEDIUM_RISK")) {
             return Fund.MEDIUM_RISK;
         }
-        if (value.equals("3") || value.equals("HIGH_RISK")) {
+        if (value.equals("HIGH_RISK")) {
             return Fund.HIGH_RISK;
         }
         return null;
@@ -327,5 +328,9 @@ public class BankingService {
 
     private String formatMoney(BigDecimal amount) {
         return "$" + amount.setScale(2, RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private String formatInputAmount(BigDecimal amount) {
+        return "$" + amount.stripTrailingZeros().toPlainString();
     }
 }
