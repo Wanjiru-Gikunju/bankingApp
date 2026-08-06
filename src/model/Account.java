@@ -55,7 +55,7 @@ public abstract class Account {
         validatePositiveAmount(amount);
 
         if (balance.compareTo(amount) < 0) {
-            throw new InvalidAmountException("Insufficient funds.");
+            throw new InvalidAmountException("Insufficient funds");
         }
 
         balance = balance.subtract(amount);
@@ -93,11 +93,11 @@ public abstract class Account {
             throws InvalidAmountException {
 
         if (amount == null) {
-            throw new InvalidAmountException("Amount cannot be null.");
+            throw new InvalidAmountException("amount must be positive");
         }
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("Amount must be greater than zero.");
+            throw new InvalidAmountException("amount must be positive");
         }
     }
 

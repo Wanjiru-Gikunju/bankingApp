@@ -49,8 +49,12 @@ public class InvestmentAccount extends Account {
             throws InvalidAmountException {
         validatePositiveAmount(amount);
 
+        if (fund == null) {
+            throw new InvalidAmountException("Invalid fund");
+        }
+
         if (balance.compareTo(amount) < 0) {
-            throw new InvalidAmountException("Insufficient investment account balance.");
+            throw new InvalidAmountException("Insufficient funds");
         }
 
         balance = balance.subtract(amount);
