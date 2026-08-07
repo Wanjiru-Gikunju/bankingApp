@@ -38,19 +38,19 @@ Build a fully functional command-line banking application that satisfies all pro
 
 ### BankingService.java
 
-* [ ] Implement `start()`
-* [ ] Implement `login()`
-* [ ] Implement `readMenuChoice()`
-* [ ] Implement `processMenuChoice()`
-* [ ] Implement `showBalance()`
-* [ ] Implement `readAmount()`
+* [x] Implement `start()`
+* [x] Implement `login()`
+* [x] Implement `readMenuChoice()`
+* [x] Implement `processMenuChoice()`
+* [x] Implement `showBalance()`
+* [x] Implement `readAmount()`
 
 ### Integration
 
-* [ ] Create `BankingApp.java`
-* [ ] Connect all classes together
-* [ ] Test complete application
-* [ ] Merge approved branches into `main`
+* [x] Create `BankingApp.java`
+* [x] Connect all classes together
+* [x] Test complete application
+* [x] Merge approved branches into `main`
 
 ---
 
@@ -58,19 +58,19 @@ Build a fully functional command-line banking application that satisfies all pro
 
 ### Account.java
 
-* [ ] Implement `validatePositiveAmount()`
-* [ ] Implement `deposit()`
-* [ ] Implement `withdraw()`
+* [x] Implement `validatePositiveAmount()`
+* [x] Implement `deposit()`
+* [x] Implement `withdraw()`
 
 ### SavingsAccount.java
 
-* [ ] Implement `applyInterest()`
+* [x] Implement `applyInterest()`
 
 ### InvestmentAccount.java
 
-* [ ] Implement `invest()`
-* [ ] Implement `applyGrowth()`
-* [ ] Implement `withdrawAllInvestments()`
+* [x] Implement `invest()`
+* [x] Implement `applyGrowth()`
+* [x] Implement `withdrawAllInvestments()`
 
 ---
 
@@ -78,25 +78,25 @@ Build a fully functional command-line banking application that satisfies all pro
 
 ### Documentation
 
-* [ ] Review project documentation
-* [ ] Update README if required
+* [x] Review project documentation
+* [x] Update README if required
 
 ### Testing
 
-* [ ] Test login
-* [ ] Test logout
-* [ ] Test deposits
-* [ ] Test withdrawals
-* [ ] Test transfers
-* [ ] Test investments
-* [ ] Test invalid user input
-* [ ] Test invalid amounts
-* [ ] Report bugs to the team
+* [x] Test login
+* [x] Test logout
+* [x] Test deposits
+* [x] Test withdrawals
+* [x] Test transfers
+* [x] Test investments
+* [x] Test invalid user input
+* [x] Test invalid amounts
+* [x] Report bugs to the team
 
 ### Support
 
-* [ ] Help verify completed features
-* [ ] Fix simple bugs assigned by the team lead
+* [x] Help verify completed features
+* [x] Fix simple bugs assigned by the team lead
 
 ---
 
@@ -126,13 +126,13 @@ A task is considered complete when:
 
 # Final Checklist
 
-* [ ] All Java files implemented
-* [ ] Application compiles successfully
-* [ ] All menu options work
-* [ ] Invalid input handled correctly
-* [ ] Interest applied correctly
-* [ ] Investment growth applied correctly
-* [ ] Transfers work correctly
-* [ ] README completed
-* [ ] Final team testing completed
-* [ ] Ready for submission
+* [x] All Java files implemented
+* [x] Application compiles successfully
+* [x] All menu options work
+* [x] Invalid input handled correctly
+* [x] Interest applied correctly
+* [x] Investment growth applied correctly
+* [x] Transfers work correctly
+* [x] README completed
+* [x] Final team testing completed
+* [x] Ready for submission
